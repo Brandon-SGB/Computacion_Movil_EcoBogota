@@ -1,7 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Base application theme, modo oscuro. -->
     <style name="Base.Theme.Movil_EcoBogota" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/verde_eco_claro</item>
+        <item name="colorOnPrimary">@color/verde_eco_oscuro</item>
+        <item name="colorPrimaryContainer">@color/verde_eco_oscuro</item>
+        <item name="colorOnPrimaryContainer">@color/verde_eco_contenedor</item>
+        <item name="colorSecondaryContainer">@color/verde_eco_oscuro</item>
+        <item name="colorOnSecondaryContainer">@color/verde_eco_contenedor</item>
     </style>
 </resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Provisionales hasta que el equipo defina los estados oficiales (P8) -->
+    <string-array name="estados_reporte">
+        <item>@string/estado_pendiente</item>
+        <item>@string/estado_en_proceso</item>
+        <item>@string/estado_resuelto</item>
+        <item>@string/estado_rechazado</item>
+    </string-array>
+    <string-array name="estados_solicitud">
+        <item>@string/estado_pendiente</item>
+        <item>@string/estado_en_proceso</item>
+        <item>@string/estado_completada</item>
+        <item>@string/estado_cancelada</item>
+    </string-array>
+    <string-array name="roles_usuario">
+        <item>@string/rol_ciudadano</item>
+        <item>@string/rol_administrador</item>
+    </string-array>
+    <!-- Pendiente confirmar con el backend las unidades que acepta una solicitud (HU-11) -->
+    <string-array name="unidades_cantidad">
+        <item>kg</item>
+        <item>unidades</item>
+        <item>bolsas</item>
+    </string-array>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="espacio_xs">4dp</dimen>
+    <dimen name="espacio_s">8dp</dimen>
+    <dimen name="espacio_m">12dp</dimen>
+    <dimen name="espacio_l">16dp</dimen>
+    <dimen name="espacio_xl">24dp</dimen>
+    <dimen name="alto_imagen">180dp</dimen>
+    <dimen name="logo_login">96dp</dimen>
+</resources>

@@ -2,4 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Marca -->
+    <color name="verde_eco">#FF2E7D32</color>
+    <color name="verde_eco_oscuro">#FF1B5E20</color>
+    <color name="verde_eco_claro">#FFA5D6A7</color>
+    <color name="verde_eco_contenedor">#FFC8E6C9</color>
+
+    <!-- Código de colores de recipientes (Resolución 2184 de 2019) -->
+    <color name="recipiente_blanco">#FFFFFFFF</color>
+    <color name="recipiente_negro">#FF212121</color>
+    <color name="recipiente_verde">#FF388E3C</color>
 </resources>

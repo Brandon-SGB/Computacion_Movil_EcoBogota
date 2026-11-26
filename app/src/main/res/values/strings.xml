@@ -1,3 +1,224 @@
 <resources>
-    <string name="app_name">Movil_EcoBogota</string>
+    <string name="app_name">EcoBogotá</string>
+
+    <!-- Navegación ciudadano (menu_ciudadano.xml) -->
+    <string name="nav_inicio">Inicio</string>
+    <string name="nav_puntos">Puntos</string>
+    <string name="nav_ecoia">EcoIA</string>
+    <string name="nav_tramites">Trámites</string>
+    <string name="nav_perfil">Perfil</string>
+
+    <!-- Navegación administrador (menu_admin.xml y menu_toolbar_admin.xml) -->
+    <string name="nav_admin_usuarios">Usuarios</string>
+    <string name="nav_admin_residuos">Residuos</string>
+    <string name="nav_admin_puntos">Puntos</string>
+    <string name="nav_admin_reportes">Reportes</string>
+    <string name="nav_admin_solicitudes">Solicitudes</string>
+    <string name="accion_permisos">Permisos</string>
+    <string name="accion_cerrar_sesion">Cerrar sesión</string>
+
+    <!-- Login y registro (HU-01, HU-02) -->
+    <string name="login_subtitulo">Recicla bien, gana puntos</string>
+    <string name="login_ir_registro">¿No tienes cuenta? Regístrate</string>
+    <string name="login_modo_prueba">Modo de prueba sin backend: un correo que empiece por \"admin\" entra como administrador; cualquier otro, como ciudadano.</string>
+    <string name="titulo_registro">Crear cuenta</string>
+    <string name="msg_registro_exitoso">Registro exitoso. Ahora inicia sesión.</string>
+
+    <!-- Títulos -->
+    <string name="titulo_nuevo_reporte">Nuevo reporte</string>
+    <string name="titulo_nueva_solicitud">Nueva solicitud de recolección</string>
+    <string name="titulo_ecoia">Pregúntale a EcoIA</string>
+    <string name="titulo_historial_ecoia">Historial de consultas</string>
+    <string name="titulo_detalle_solicitud">Solicitud de recolección</string>
+    <string name="titulo_historial_actividades">Historial de actividades</string>
+    <string name="titulo_notificaciones">Notificaciones</string>
+    <string name="titulo_permisos">Permisos</string>
+    <string name="titulo_recomendaciones">Recomendaciones</string>
+    <string name="titulo_cambiar_estado">Cambiar estado</string>
+    <string name="titulo_admin_residuos">Residuos</string>
+    <string name="titulo_admin_puntos">Puntos de reciclaje</string>
+    <string name="titulo_admin_reportes">Reportes</string>
+    <string name="titulo_admin_solicitudes">Solicitudes</string>
+    <string name="titulo_admin_usuario_form">Usuario</string>
+    <string name="titulo_admin_residuo_form">Residuo</string>
+    <string name="titulo_admin_punto_form">Punto de reciclaje</string>
+    <string name="tab_mis_reportes">Mis reportes</string>
+    <string name="tab_mis_solicitudes">Mis solicitudes</string>
+
+    <!-- Campos de formulario -->
+    <string name="campo_nombres">Nombres</string>
+    <string name="campo_apellidos">Apellidos</string>
+    <string name="campo_nombre">Nombre</string>
+    <string name="campo_correo">Correo electrónico</string>
+    <string name="campo_telefono">Teléfono</string>
+    <string name="campo_direccion">Dirección</string>
+    <string name="campo_direccion_manual">Dirección (si no usas tu ubicación)</string>
+    <string name="campo_contrasena">Contraseña</string>
+    <string name="campo_confirmar_contrasena">Confirmar contraseña</string>
+    <string name="campo_tipo_problema">Tipo de problema</string>
+    <string name="campo_titulo">Título</string>
+    <string name="campo_descripcion">Descripción</string>
+    <string name="campo_residuo">Residuo</string>
+    <string name="campo_cantidad">Cantidad</string>
+    <string name="campo_unidad">Unidad</string>
+    <string name="campo_fecha_preferida">Fecha preferida</string>
+    <string name="campo_observaciones">Observaciones</string>
+    <string name="campo_rol">Rol</string>
+    <string name="campo_activo">Activo</string>
+    <string name="campo_categoria">Categoría</string>
+    <string name="campo_disposicion">Descripción y disposición adecuada</string>
+    <string name="campo_localidad">Localidad</string>
+    <string name="campo_horario">Horario</string>
+    <string name="campo_latitud">Latitud</string>
+    <string name="campo_longitud">Longitud</string>
+    <string name="campo_residuos_que_recibe">Residuos que recibe</string>
+    <string name="campo_nuevo_estado">Nuevo estado</string>
+    <string name="campo_comentario">Comentario</string>
+    <string name="seccion_foto">Foto</string>
+    <string name="seccion_ubicacion">Ubicación</string>
+    <string name="seccion_direccion">Dirección de recolección</string>
+
+    <!-- Etiquetas de detalle -->
+    <string name="etiqueta_categoria">Categoría</string>
+    <string name="etiqueta_color_recipiente">Recipiente</string>
+    <string name="etiqueta_disposicion">Disposición adecuada</string>
+    <string name="etiqueta_puntos_que_reciben">Puntos que lo reciben</string>
+    <string name="etiqueta_direccion">Dirección</string>
+    <string name="etiqueta_localidad">Localidad</string>
+    <string name="etiqueta_horario">Horario</string>
+    <string name="etiqueta_residuos_que_recibe">Residuos que recibe</string>
+    <string name="etiqueta_recomendacion">Recomendación</string>
+    <string name="etiqueta_historial_estados">Historial de estados</string>
+    <string name="etiqueta_total_puntos">Total de puntos</string>
+    <string name="valor_no_disponible">—</string>
+    <string name="residuos_ninguno">Ningún residuo seleccionado</string>
+
+    <!-- Búsqueda y filtros -->
+    <string name="hint_buscar_residuo">Buscar residuo</string>
+    <string name="hint_buscar_usuario">Buscar por nombre o correo</string>
+    <string name="hint_filtrar_por_residuo">Filtrar por residuo</string>
+    <string name="hint_consulta_ecoia">Describe el residuo</string>
+    <string name="filtro_todos">Todos</string>
+    <string name="filtro_activos">Activos</string>
+    <string name="filtro_inactivos">Inactivos</string>
+    <string name="aviso_sin_conexion">Sin conexión: mostrando información guardada</string>
+    <string name="mapa_pendiente">El mapa se mostrará cuando se configure la clave de Google Maps (HU-09).</string>
+    <string name="ecoia_instrucciones">Toma o elige una foto del residuo, o descríbelo con texto, y EcoIA te dirá en qué recipiente va.</string>
+
+    <!-- Botones -->
+    <string name="btn_iniciar_sesion">Iniciar sesión</string>
+    <string name="btn_registrarse">Registrarme</string>
+    <string name="btn_cerrar_sesion">Cerrar sesión</string>
+    <string name="btn_reintentar">Reintentar</string>
+    <string name="btn_guardar">Guardar</string>
+    <string name="btn_enviar">Enviar</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_aceptar">Aceptar</string>
+    <string name="btn_continuar">Continuar</string>
+    <string name="btn_nuevo">Nuevo</string>
+    <string name="btn_nuevo_residuo">Nuevo residuo</string>
+    <string name="btn_nuevo_punto">Nuevo punto de reciclaje</string>
+    <string name="btn_tomar_foto">Tomar foto</string>
+    <string name="btn_elegir_galeria">Galería</string>
+    <string name="btn_elegir_imagen">Elegir imagen</string>
+    <string name="btn_elegir_residuos">Elegir residuos</string>
+    <string name="btn_usar_mi_ubicacion">Usar mi ubicación</string>
+    <string name="btn_consultar">Consultar</string>
+    <string name="btn_historial_ecoia">Ver historial de consultas</string>
+    <string name="btn_recomendaciones">Recomendaciones</string>
+    <string name="btn_ir_ecoia">EcoIA</string>
+    <string name="btn_vista_lista">Lista</string>
+    <string name="btn_vista_mapa">Mapa</string>
+    <string name="btn_cerca_de_mi">Cerca de mí</string>
+    <string name="btn_como_llegar">Cómo llegar</string>
+    <string name="btn_solicitar">Solicitar</string>
+    <string name="btn_verificar">Verificar</string>
+    <string name="btn_abrir_ajustes">Abrir ajustes</string>
+
+    <!-- Estados vacíos de las listas -->
+    <string name="vacio_residuos">No hay residuos para mostrar</string>
+    <string name="vacio_puntos">No hay puntos de reciclaje para mostrar</string>
+    <string name="vacio_mis_reportes">Aún no has creado reportes</string>
+    <string name="vacio_mis_solicitudes">Aún no has creado solicitudes</string>
+    <string name="vacio_historial_ecoia">Aún no has hecho consultas a EcoIA</string>
+    <string name="vacio_historial_actividades">Aún no tienes actividades registradas</string>
+    <string name="vacio_recomendaciones">No hay recomendaciones para mostrar</string>
+    <string name="vacio_notificaciones">No tienes notificaciones</string>
+    <string name="vacio_usuarios">No hay usuarios para mostrar</string>
+    <string name="vacio_reportes">No hay reportes para mostrar</string>
+    <string name="vacio_solicitudes">No hay solicitudes para mostrar</string>
+
+    <!-- Estados de trámites (provisionales hasta definir P8) -->
+    <string name="estado_pendiente">Pendiente</string>
+    <string name="estado_en_proceso">En proceso</string>
+    <string name="estado_resuelto">Resuelto</string>
+    <string name="estado_rechazado">Rechazado</string>
+    <string name="estado_completada">Completada</string>
+    <string name="estado_cancelada">Cancelada</string>
+
+    <!-- Roles -->
+    <string name="rol_ciudadano">CIUDADANO</string>
+    <string name="rol_administrador">ADMINISTRADOR</string>
+
+    <!-- Código de colores (Resolución 2184 de 2019) -->
+    <string name="recipiente_blanco">Blanco: aprovechables</string>
+    <string name="recipiente_negro">Negro: no aprovechables</string>
+    <string name="recipiente_verde">Verde: orgánicos aprovechables</string>
+
+    <!-- Ubicación -->
+    <string name="ubicacion_sin_seleccionar">Sin ubicación seleccionada</string>
+    <string name="ubicacion_buscando">Buscando tu ubicación…</string>
+    <string name="ubicacion_coordenadas">Ubicación: %1$s, %2$s</string>
+    <string name="ubicacion_no_disponible">No se pudo obtener la ubicación. Escribe la dirección.</string>
+
+    <!-- Permisos (PermisosFragment y formularios) -->
+    <string name="permiso_camara">Cámara</string>
+    <string name="permiso_ubicacion">Ubicación</string>
+    <string name="permiso_notificaciones">Notificaciones</string>
+    <string name="permiso_bluetooth">Bluetooth</string>
+    <string name="permiso_camara_motivo">Para tomar fotos de reportes y consultar a EcoIA.</string>
+    <string name="permiso_ubicacion_motivo">Para ubicar reportes y solicitudes y ver puntos cercanos.</string>
+    <string name="permiso_notificaciones_motivo">Para avisarte cuando cambie el estado de tus trámites.</string>
+    <string name="permiso_bluetooth_motivo">Solo para demostrar el manejo de permisos; la app no se conecta a dispositivos.</string>
+    <string name="permisos_internet_normal">Internet es un permiso normal: el sistema lo concede al instalar la app.</string>
+    <string name="estado_permiso_concedido">Concedido</string>
+    <string name="estado_permiso_denegado">Denegado</string>
+    <string name="estado_permiso_bloqueado">Denegado permanentemente</string>
+    <string name="estado_permiso_no_requerido">No requerido en esta versión</string>
+    <string name="permiso_explicacion_titulo">¿Por qué pedimos este permiso?</string>
+    <string name="permiso_explicacion_general">EcoBogotá usa la cámara para fotos de reportes y EcoIA, la ubicación para reportes, solicitudes y puntos cercanos, las notificaciones para avisarte de tus trámites y el Bluetooth solo como demostración.</string>
+    <string name="permiso_camara_explicacion_reporte">La cámara permite adjuntar una foto del problema. Si prefieres, puedes elegir una imagen de la galería.</string>
+    <string name="permiso_ubicacion_explicacion_reporte">La ubicación permite marcar dónde está el problema. Si prefieres, puedes escribir la dirección.</string>
+    <string name="permiso_camara_denegado_galeria">Sin permiso de cámara. Puedes elegir una imagen de la galería.</string>
+    <string name="permiso_camara_denegado_ecoia">Sin permiso de cámara. Usa la galería o escribe tu consulta.</string>
+    <string name="permiso_ubicacion_denegado_manual">Sin permiso de ubicación. Escribe la dirección a mano.</string>
+    <string name="permiso_ubicacion_denegado_lista">Sin permiso de ubicación. La lista no se ordena por distancia.</string>
+    <string name="permiso_ubicacion_denegado_coordenadas">Sin permiso de ubicación. Escribe la latitud y la longitud.</string>
+
+    <!-- Errores de validación -->
+    <string name="error_campo_obligatorio">Campo obligatorio</string>
+    <string name="error_correo_invalido">Correo no válido</string>
+    <string name="error_telefono_invalido">Teléfono no válido</string>
+    <string name="error_contrasena_corta">Mínimo %1$d caracteres</string>
+    <string name="error_contrasenas_no_coinciden">Las contraseñas no coinciden</string>
+    <string name="error_cantidad_invalida">Escribe una cantidad mayor que cero</string>
+    <string name="error_ubicacion_o_direccion">Usa tu ubicación o escribe la dirección</string>
+    <string name="error_coordenada_invalida">Coordenada no válida</string>
+    <string name="error_ecoia_sin_datos">Agrega una foto o escribe tu consulta</string>
+    <string name="error_sin_app_mapas">No hay una app de mapas instalada</string>
+
+    <!-- Mensajes temporales mientras se integra la API -->
+    <string name="msg_pendiente_api">Pendiente de integración con la API (%1$s)</string>
+    <string name="hu_01">HU-01</string>
+    <string name="hu_02">HU-02</string>
+    <string name="hu_03">HU-03</string>
+    <string name="hu_05">HU-05</string>
+    <string name="hu_06">HU-06</string>
+    <string name="hu_10">HU-10</string>
+    <string name="hu_11">HU-11</string>
+    <string name="hu_17">HU-17</string>
+
+    <!-- Descripciones de accesibilidad -->
+    <string name="desc_foto">Foto adjunta</string>
+    <string name="desc_imagen_residuo">Imagen del residuo</string>
 </resources>

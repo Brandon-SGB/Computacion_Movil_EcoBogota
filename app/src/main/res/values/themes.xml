@@ -1,8 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Base application theme (Material 3). -->
     <style name="Base.Theme.Movil_EcoBogota" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/verde_eco</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/verde_eco_contenedor</item>
+        <item name="colorOnPrimaryContainer">@color/verde_eco_oscuro</item>
+        <item name="colorSecondaryContainer">@color/verde_eco_contenedor</item>
+        <item name="colorOnSecondaryContainer">@color/verde_eco_oscuro</item>
     </style>
 
     <style name="Theme.Movil_EcoBogota" parent="Base.Theme.Movil_EcoBogota" />
