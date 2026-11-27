@@ -19,6 +19,6 @@ public class RetrofitClientTest {
     //Con BASE_URL vacía no se debe poder construir Retrofit
     @Test(expected = IllegalStateException.class)
     public void obtenerRetrofit_conBaseUrlVacia_lanzaExcepcion() {
-        RetrofitClient.getRetrofit();
+        RetrofitClient.getRetrofit(null);
     }
 }

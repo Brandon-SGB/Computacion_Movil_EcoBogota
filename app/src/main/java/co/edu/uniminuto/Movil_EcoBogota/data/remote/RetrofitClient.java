@@ -1,5 +1,8 @@
 package co.edu.uniminuto.Movil_EcoBogota.data.remote;
 
+import android.content.Context;
+
+import co.edu.uniminuto.Movil_EcoBogota.data.session.SessionManager;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -18,13 +21,14 @@ public class RetrofitClient {
     }
 
     //Método que devuelve la instancia única de Retrofit
-    public static synchronized Retrofit getRetrofit() {
+    public static synchronized Retrofit getRetrofit(Context context) {
         if (BASE_URL.isEmpty()) {
             throw new IllegalStateException(
                     "BASE_URL no está definida: pendiente del contrato del backend (G2)");
         }
         if (retrofit == null) {
             OkHttpClient cliente = new OkHttpClient.Builder()
+                    .addInterceptor(new AuthInterceptor(SessionManager.getInstance(context)))
                     .addInterceptor(crearLoggingInterceptor())
                     .build();
             retrofit = new Retrofit.Builder()

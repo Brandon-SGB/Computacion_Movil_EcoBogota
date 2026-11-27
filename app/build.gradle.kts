@@ -42,6 +42,7 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.recyclerview)
     implementation(libs.cardview)
+    implementation(libs.security.crypto)
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.ext.junit)
