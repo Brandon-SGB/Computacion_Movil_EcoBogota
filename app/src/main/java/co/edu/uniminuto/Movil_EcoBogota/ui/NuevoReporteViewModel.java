@@ -15,9 +15,6 @@ public class NuevoReporteViewModel extends FormularioViewModel {
     private final MutableLiveData<String> errorDescripcion = new MutableLiveData<>();
     private final MutableLiveData<String> errorDireccion = new MutableLiveData<>();
 
-    //La ubicación por GPS no se lee hasta habilitar play-services-location (DA-7)
-    private boolean ubicacionGps = false;
-
     public NuevoReporteViewModel(@NonNull Application application) {
         super(application);
     }
@@ -33,7 +30,7 @@ public class NuevoReporteViewModel extends FormularioViewModel {
     //Método para validar y enviar el reporte
     public void enviar(String descripcion, String direccion) {
         int validacionDescripcion = validarDescripcion(descripcion);
-        int validacionUbicacion = validarUbicacion(ubicacionGps, direccion);
+        int validacionUbicacion = validarUbicacion(tieneUbicacionGps(), direccion);
         errorDescripcion.setValue(textoError(validacionDescripcion));
         errorDireccion.setValue(textoError(validacionUbicacion));
         if (validacionDescripcion != VALIDO) {
