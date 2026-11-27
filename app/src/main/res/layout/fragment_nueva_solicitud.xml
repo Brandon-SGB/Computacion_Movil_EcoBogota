@@ -53,6 +53,12 @@
             android:layout_height="wrap_content"
             android:text="@string/btn_gps" />
 
+        <TextView
+            android:id="@+id/tvUbicacionGps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
         <EditText
             android:id="@+id/etDireccion"
             android:layout_width="match_parent"

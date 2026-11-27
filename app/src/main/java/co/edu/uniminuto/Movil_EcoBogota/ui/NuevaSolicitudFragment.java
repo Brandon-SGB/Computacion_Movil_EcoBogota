@@ -43,6 +43,7 @@ public class NuevaSolicitudFragment extends Fragment {
     private Button btnEnviarSolicitud;
     private ProgressBar pbNuevaSolicitud;
     private TextView tvEstadoNuevaSolicitud;
+    private TextView tvUbicacionGps;
 
     //ViewModel de la pantalla
     private NuevaSolicitudViewModel viewModel;
@@ -77,6 +78,7 @@ public class NuevaSolicitudFragment extends Fragment {
         btnEnviarSolicitud = view.findViewById(R.id.btnEnviarSolicitud);
         pbNuevaSolicitud = view.findViewById(R.id.pbNuevaSolicitud);
         tvEstadoNuevaSolicitud = view.findViewById(R.id.tvEstadoNuevaSolicitud);
+        tvUbicacionGps = view.findViewById(R.id.tvUbicacionGps);
         //Los tipos de residuo llegan del backend; mientras tanto la lista queda deshabilitada
         spTipoResiduo.setEnabled(false);
         viewModel = new ViewModelProvider(this).get(NuevaSolicitudViewModel.class);
@@ -88,6 +90,7 @@ public class NuevaSolicitudFragment extends Fragment {
         viewModel.getEstado().observe(getViewLifecycleOwner(), this::mostrarEstado);
         viewModel.getErrorCantidad().observe(getViewLifecycleOwner(), etCantidad::setError);
         viewModel.getErrorDireccion().observe(getViewLifecycleOwner(), etDireccion::setError);
+        viewModel.getTextoUbicacionGps().observe(getViewLifecycleOwner(), this::mostrarUbicacionGps);
     }
 
     //Método para mostrar las vistas según el estado
@@ -107,7 +110,7 @@ public class NuevaSolicitudFragment extends Fragment {
     private void usarGps(View view) {
         try {
             if (tienePermisoUbicacion()) {
-                avisarGpsPendiente();
+                viewModel.leerUbicacionGps();
             } else {
                 solicitudPermisoUbicacion.launch(PERMISOS_UBICACION);
             }
@@ -119,7 +122,7 @@ public class NuevaSolicitudFragment extends Fragment {
     //Método que recibe la respuesta del usuario al permiso de ubicación
     private void onRespuestaPermisoUbicacion(Map<String, Boolean> resultado) {
         if (resultado.containsValue(Boolean.TRUE)) {
-            avisarGpsPendiente();
+            viewModel.leerUbicacionGps();
         } else {
             Toast.makeText(requireContext(), R.string.permiso_ubicacion_denegado, Toast.LENGTH_LONG).show();
             etDireccion.requestFocus();
@@ -136,9 +139,9 @@ public class NuevaSolicitudFragment extends Fragment {
         return false;
     }
 
-    //La lectura de la ubicación queda pendiente hasta habilitar play-services-location (DA-7)
-    private void avisarGpsPendiente() {
-        Toast.makeText(requireContext(), R.string.gps_pendiente, Toast.LENGTH_LONG).show();
-        etDireccion.requestFocus();
+    //Método para mostrar el resultado de la lectura del GPS en el formulario
+    private void mostrarUbicacionGps(String texto) {
+        tvUbicacionGps.setText(texto);
+        tvUbicacionGps.setVisibility(texto == null ? View.GONE : View.VISIBLE);
     }
 }
