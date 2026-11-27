@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Movil_EcoBogota</string>
+    <string name="conexion_disponible">Con conexión a internet</string>
+    <string name="conexion_no_disponible">Sin conexión a internet</string>
 </resources>
