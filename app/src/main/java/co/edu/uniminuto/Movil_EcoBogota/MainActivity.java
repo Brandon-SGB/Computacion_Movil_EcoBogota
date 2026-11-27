@@ -14,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -90,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
     //Método para mostrar un fragment en el contenedor
     private void cargarFragment(Fragment fragment) {
         try {
+            //Al cambiar de pestaña se descartan los formularios abiertos
+            getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.frContenedor, fragment)

@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.util.Log;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -23,6 +25,7 @@ public class SolicitudesFragment extends Fragment {
     private RecyclerView rvSolicitudes;
     private ProgressBar pbSolicitudes;
     private TextView tvEstadoSolicitudes;
+    private Button btnNuevaSolicitud;
 
     //ViewModel de la pantalla
     private SolicitudesViewModel viewModel;
@@ -39,8 +42,22 @@ public class SolicitudesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initObjects(view);
         observarViewModel();
+        btnNuevaSolicitud.setOnClickListener(this::abrirNuevaSolicitud);
         if (viewModel.getEstado().getValue() == null) {
             viewModel.cargar();
+        }
+    }
+
+    //Método del botón Nueva solicitud: abre el formulario y permite volver con Atrás
+    private void abrirNuevaSolicitud(View view) {
+        try {
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.frContenedor, new NuevaSolicitudFragment())
+                    .addToBackStack(null)
+                    .commit();
+        } catch (Exception e) {
+            Log.i("navegacion", "error al abrir la nueva solicitud " + e.getMessage());
         }
     }
 
@@ -49,6 +66,7 @@ public class SolicitudesFragment extends Fragment {
         rvSolicitudes = view.findViewById(R.id.rvSolicitudes);
         pbSolicitudes = view.findViewById(R.id.pbSolicitudes);
         tvEstadoSolicitudes = view.findViewById(R.id.tvEstadoSolicitudes);
+        btnNuevaSolicitud = view.findViewById(R.id.btnNuevaSolicitud);
         //El adaptador se agrega cuando exista el contrato del backend
         rvSolicitudes.setLayoutManager(new LinearLayoutManager(requireContext()));
         viewModel = new ViewModelProvider(this).get(SolicitudesViewModel.class);

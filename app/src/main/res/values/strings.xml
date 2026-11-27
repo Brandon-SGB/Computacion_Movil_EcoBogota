@@ -36,4 +36,22 @@
     <string name="item_direccion_punto">Dirección</string>
     <string name="item_horario_punto">Horario</string>
     <string name="item_tipos_residuo_punto">Tipos de residuo</string>
+
+    <!-- Formularios: ubicación y envío -->
+    <string name="btn_gps">Usar mi ubicación (GPS)</string>
+    <string name="hint_direccion">Dirección</string>
+    <string name="btn_enviar">Enviar</string>
+    <string name="gps_pendiente">Ubicación por GPS pendiente de habilitar; escribe la dirección</string>
+    <string name="permiso_ubicacion_denegado">Permiso de ubicación denegado; escribe la dirección</string>
+    <string name="error_ubicacion_obligatoria">Indica la ubicación por GPS o escribe la dirección</string>
+    <string name="envio_pendiente_backend">El envío estará disponible cuando se configure el servicio del backend</string>
+
+    <!-- Nueva solicitud (HU-11) -->
+    <string name="btn_nueva_solicitud">Nueva solicitud</string>
+    <string name="titulo_nueva_solicitud">Nueva solicitud de recolección</string>
+    <string name="hint_cantidad">Cantidad</string>
+    <string name="error_cantidad_obligatoria">La cantidad es obligatoria</string>
+    <string name="error_cantidad_numerica">La cantidad debe ser un número</string>
+    <string name="error_cantidad_mayor_cero">La cantidad debe ser mayor que 0</string>
+    <string name="solicitud_no_enviada_sin_conexion">La solicitud no fue enviada: sin conexión a internet</string>
 </resources>

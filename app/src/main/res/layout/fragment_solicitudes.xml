@@ -12,6 +12,13 @@
         android:text="@string/titulo_solicitudes"
         android:textAppearance="?attr/textAppearanceTitleLarge" />
 
+    <Button
+        android:id="@+id/btnNuevaSolicitud"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/btn_nueva_solicitud" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -1,11 +1,6 @@
 package co.edu.uniminuto.Movil_EcoBogota.ui;
 
 import android.app.Application;
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkCapabilities;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -47,18 +42,6 @@ public abstract class ListadoViewModel extends AndroidViewModel {
 
     //Método para verificar si el dispositivo tiene conexión a internet
     protected boolean hayConexion() {
-        try {
-            ConnectivityManager conexion = (ConnectivityManager) getApplication()
-                    .getSystemService(Context.CONNECTIVITY_SERVICE);
-            if (conexion == null) {
-                return false;
-            }
-            Network red = conexion.getActiveNetwork();
-            NetworkCapabilities caps = conexion.getNetworkCapabilities(red);
-            return caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
-        } catch (Exception e) {
-            Log.i("conexion", "error con la conexión " + e.getMessage());
-            return false;
-        }
+        return ConexionRed.hayConexion(getApplication());
     }
 }
