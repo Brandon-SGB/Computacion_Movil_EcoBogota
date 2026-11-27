@@ -13,11 +13,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import co.edu.uniminuto.Movil_EcoBogota.ui.PuntosFragment;
+import co.edu.uniminuto.Movil_EcoBogota.ui.ReportesFragment;
+import co.edu.uniminuto.Movil_EcoBogota.ui.SolicitudesFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     //Contexto de la aplicación
     private Context context;
+
+    //Navegación inferior
+    private BottomNavigationView bnvMenu;
 
     //Conexión a internet
     private ConnectivityManager conexion;
@@ -34,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
         initObjects();
+        configurarBottomNavigation();
+        //Pantalla inicial: solo la primera vez, no al rotar
+        if (savedInstanceState == null) {
+            bnvMenu.setSelectedItemId(R.id.nav_reportes);
+        }
     }
 
     @Override
@@ -45,6 +60,43 @@ public class MainActivity extends AppCompatActivity {
     //Método para inicializar los objetos de la actividad
     private void initObjects() {
         context = getApplicationContext();
+        bnvMenu = findViewById(R.id.bnvMenu);
+    }
+
+    //Método para configurar la navegación inferior
+    private void configurarBottomNavigation() {
+        bnvMenu.setOnItemSelectedListener(item -> {
+            Fragment fragment = obtenerFragment(item.getItemId());
+            if (fragment == null) {
+                return false;
+            }
+            cargarFragment(fragment);
+            return true;
+        });
+    }
+
+    //Método que devuelve el fragment de cada opción del menú
+    private Fragment obtenerFragment(int itemId) {
+        if (itemId == R.id.nav_reportes) {
+            return new ReportesFragment();
+        } else if (itemId == R.id.nav_solicitudes) {
+            return new SolicitudesFragment();
+        } else if (itemId == R.id.nav_puntos) {
+            return new PuntosFragment();
+        }
+        return null;
+    }
+
+    //Método para mostrar un fragment en el contenedor
+    private void cargarFragment(Fragment fragment) {
+        try {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.frContenedor, fragment)
+                    .commit();
+        } catch (Exception e) {
+            Log.i("navegacion", "error al cargar la pantalla " + e.getMessage());
+        }
     }
 
     //Método para verificar si el dispositivo tiene conexión a internet

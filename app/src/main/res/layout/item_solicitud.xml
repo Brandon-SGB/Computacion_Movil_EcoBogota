@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tvTipoResiduoSolicitud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/item_tipo_residuo_solicitud" />
+
+        <TextView
+            android:id="@+id/tvCantidadSolicitud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/item_cantidad_solicitud" />
+
+        <TextView
+            android:id="@+id/tvUbicacionSolicitud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/item_ubicacion_solicitud" />
+
+        <TextView
+            android:id="@+id/tvFechaSolicitud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/item_fecha_solicitud" />
+
+        <TextView
+            android:id="@+id/tvEstadoSolicitud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/item_estado_solicitud" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

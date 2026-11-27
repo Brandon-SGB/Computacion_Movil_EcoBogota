@@ -2,4 +2,38 @@
     <string name="app_name">Movil_EcoBogota</string>
     <string name="conexion_disponible">Con conexión a internet</string>
     <string name="conexion_no_disponible">Sin conexión a internet</string>
+
+    <!-- Navegación inferior -->
+    <string name="menu_reportes">Reportes</string>
+    <string name="menu_solicitudes">Solicitudes</string>
+    <string name="menu_puntos">Puntos</string>
+
+    <!-- Estados de las consultas -->
+    <string name="consulta_pendiente_backend">La consulta estará disponible cuando se configure el servicio del backend</string>
+    <string name="sin_resultados">No hay resultados para mostrar</string>
+
+    <!-- Reportes (HU-07) -->
+    <string name="titulo_reportes">Mis reportes</string>
+    <string name="item_descripcion_reporte">Descripción</string>
+    <string name="item_fecha_reporte">Fecha</string>
+    <string name="item_tipo_problema_reporte">Tipo de problema</string>
+    <string name="item_estado_reporte">Estado</string>
+    <string name="item_ubicacion_reporte">Ubicación</string>
+    <string name="descripcion_foto_reporte">Foto del reporte</string>
+
+    <!-- Solicitudes (HU-12) -->
+    <string name="titulo_solicitudes">Mis solicitudes de recolección</string>
+    <string name="item_tipo_residuo_solicitud">Tipo de residuo</string>
+    <string name="item_cantidad_solicitud">Cantidad</string>
+    <string name="item_ubicacion_solicitud">Ubicación</string>
+    <string name="item_fecha_solicitud">Fecha</string>
+    <string name="item_estado_solicitud">Estado</string>
+
+    <!-- Puntos de reciclaje (HU-09) -->
+    <string name="titulo_puntos">Puntos de reciclaje</string>
+    <string name="filtro_tipo_residuo">Filtrar por tipo de residuo</string>
+    <string name="item_nombre_punto">Nombre</string>
+    <string name="item_direccion_punto">Dirección</string>
+    <string name="item_horario_punto">Horario</string>
+    <string name="item_tipos_residuo_punto">Tipos de residuo</string>
 </resources>
