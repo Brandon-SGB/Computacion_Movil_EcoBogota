@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.util.Log;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -23,6 +25,7 @@ public class ReportesFragment extends Fragment {
     private RecyclerView rvReportes;
     private ProgressBar pbReportes;
     private TextView tvEstadoReportes;
+    private Button btnNuevoReporte;
 
     //ViewModel de la pantalla
     private ReportesViewModel viewModel;
@@ -39,8 +42,22 @@ public class ReportesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initObjects(view);
         observarViewModel();
+        btnNuevoReporte.setOnClickListener(this::abrirNuevoReporte);
         if (viewModel.getEstado().getValue() == null) {
             viewModel.cargar();
+        }
+    }
+
+    //Método del botón Nuevo reporte: abre el formulario y permite volver con Atrás
+    private void abrirNuevoReporte(View view) {
+        try {
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.frContenedor, new NuevoReporteFragment())
+                    .addToBackStack(null)
+                    .commit();
+        } catch (Exception e) {
+            Log.i("navegacion", "error al abrir el nuevo reporte " + e.getMessage());
         }
     }
 
@@ -49,6 +66,7 @@ public class ReportesFragment extends Fragment {
         rvReportes = view.findViewById(R.id.rvReportes);
         pbReportes = view.findViewById(R.id.pbReportes);
         tvEstadoReportes = view.findViewById(R.id.tvEstadoReportes);
+        btnNuevoReporte = view.findViewById(R.id.btnNuevoReporte);
         //El adaptador se agrega cuando exista el contrato del backend
         rvReportes.setLayoutManager(new LinearLayoutManager(requireContext()));
         viewModel = new ViewModelProvider(this).get(ReportesViewModel.class);

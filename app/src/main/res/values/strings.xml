@@ -54,4 +54,11 @@
     <string name="error_cantidad_numerica">La cantidad debe ser un número</string>
     <string name="error_cantidad_mayor_cero">La cantidad debe ser mayor que 0</string>
     <string name="solicitud_no_enviada_sin_conexion">La solicitud no fue enviada: sin conexión a internet</string>
+
+    <!-- Nuevo reporte (HU-06) -->
+    <string name="btn_nuevo_reporte">Nuevo reporte</string>
+    <string name="titulo_nuevo_reporte">Nuevo reporte</string>
+    <string name="hint_descripcion">Descripción del problema</string>
+    <string name="error_descripcion_obligatoria">La descripción es obligatoria</string>
+    <string name="reporte_no_enviado_sin_conexion">El reporte no fue enviado: sin conexión a internet</string>
 </resources>
