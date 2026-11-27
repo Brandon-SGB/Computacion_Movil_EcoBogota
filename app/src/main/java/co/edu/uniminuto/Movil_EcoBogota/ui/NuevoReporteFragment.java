@@ -1,14 +1,22 @@
 package co.edu.uniminuto.Movil_EcoBogota.ui;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -18,10 +26,12 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.io.IOException;
 import java.util.Map;
 
 import co.edu.uniminuto.Movil_EcoBogota.R;
@@ -44,6 +54,9 @@ public class NuevoReporteFragment extends Fragment {
     private ProgressBar pbNuevoReporte;
     private TextView tvEstadoNuevoReporte;
     private TextView tvUbicacionGps;
+    private Button btnTomarFoto;
+    private Button btnAjustesCamara;
+    private ImageView ivFotoReporte;
 
     //ViewModel de la pantalla
     private NuevoReporteViewModel viewModel;
@@ -52,6 +65,23 @@ public class NuevoReporteFragment extends Fragment {
     private final ActivityResultLauncher<String[]> solicitudPermisoUbicacion =
             registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
                     this::onRespuestaPermisoUbicacion);
+
+    //Solicitud del permiso de cámara, solo al pulsar Tomar foto (D-4)
+    private final ActivityResultLauncher<String> solicitudPermisoCamara =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(),
+                    this::onRespuestaPermisoCamara);
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //Recibe la ruta de la foto tomada en CamaraFragment
+        getParentFragmentManager().setFragmentResultListener(CamaraFragment.RESULTADO_FOTO, this,
+                (clave, datos) -> {
+                    if (viewModel != null) {
+                        viewModel.setRutaFoto(datos.getString(CamaraFragment.CLAVE_RUTA_FOTO));
+                    }
+                });
+    }
 
     @Nullable
     @Override
@@ -67,6 +97,8 @@ public class NuevoReporteFragment extends Fragment {
         observarViewModel();
         btnGps.setOnClickListener(this::usarGps);
         btnEnviarReporte.setOnClickListener(this::enviarReporte);
+        btnTomarFoto.setOnClickListener(this::tomarFoto);
+        btnAjustesCamara.setOnClickListener(this::abrirAjustes);
     }
 
     //Método para enlazar los objetos de la vista con la parte lógica
@@ -79,6 +111,9 @@ public class NuevoReporteFragment extends Fragment {
         pbNuevoReporte = view.findViewById(R.id.pbNuevoReporte);
         tvEstadoNuevoReporte = view.findViewById(R.id.tvEstadoNuevoReporte);
         tvUbicacionGps = view.findViewById(R.id.tvUbicacionGps);
+        btnTomarFoto = view.findViewById(R.id.btnTomarFoto);
+        btnAjustesCamara = view.findViewById(R.id.btnAjustesCamara);
+        ivFotoReporte = view.findViewById(R.id.ivFotoReporte);
         //Los tipos de problema llegan del backend; mientras tanto la lista queda deshabilitada
         spTipoProblema.setEnabled(false);
         viewModel = new ViewModelProvider(this).get(NuevoReporteViewModel.class);
@@ -91,6 +126,7 @@ public class NuevoReporteFragment extends Fragment {
         viewModel.getErrorDescripcion().observe(getViewLifecycleOwner(), etDescripcion::setError);
         viewModel.getErrorDireccion().observe(getViewLifecycleOwner(), etDireccion::setError);
         viewModel.getTextoUbicacionGps().observe(getViewLifecycleOwner(), this::mostrarUbicacionGps);
+        viewModel.getRutaFoto().observe(getViewLifecycleOwner(), this::mostrarFoto);
     }
 
     //Método para mostrar las vistas según el estado
@@ -137,6 +173,117 @@ public class NuevoReporteFragment extends Fragment {
             }
         }
         return false;
+    }
+
+    //Método del botón Tomar foto: el permiso de cámara se pide solo en este momento (D-4)
+    private void tomarFoto(View view) {
+        try {
+            if (!requireContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
+                Toast.makeText(requireContext(), R.string.camara_no_disponible, Toast.LENGTH_LONG).show();
+                return;
+            }
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                abrirCamara();
+            } else if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
+                mostrarExplicacionCamara();
+            } else {
+                solicitudPermisoCamara.launch(Manifest.permission.CAMERA);
+            }
+        } catch (Exception e) {
+            Log.i("camara", "error con el permiso de cámara " + e.getMessage());
+        }
+    }
+
+    //Método que recibe la respuesta del usuario al permiso de cámara
+    private void onRespuestaPermisoCamara(boolean concedido) {
+        NuevoReporteViewModel.AccionPermisoCamara accion = NuevoReporteViewModel.decidirAccionPermisoCamara(
+                concedido, shouldShowRequestPermissionRationale(Manifest.permission.CAMERA));
+        boolean irAAjustes = accion == NuevoReporteViewModel.AccionPermisoCamara.IR_A_AJUSTES;
+        btnAjustesCamara.setVisibility(irAAjustes ? View.VISIBLE : View.GONE);
+        if (accion == NuevoReporteViewModel.AccionPermisoCamara.ABRIR_CAMARA) {
+            abrirCamara();
+        } else if (accion == NuevoReporteViewModel.AccionPermisoCamara.EXPLICAR_Y_REINTENTAR) {
+            mostrarExplicacionCamara();
+        } else {
+            Toast.makeText(requireContext(), R.string.permiso_camara_permanente, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    //Explicación del uso de la cámara con opción de reintentar (D-5); el resto del formulario sigue disponible
+    private void mostrarExplicacionCamara() {
+        new AlertDialog.Builder(requireContext())
+                .setTitle(R.string.titulo_permiso_camara)
+                .setMessage(R.string.explicacion_permiso_camara)
+                .setPositiveButton(R.string.btn_reintentar,
+                        (dialogo, boton) -> solicitudPermisoCamara.launch(Manifest.permission.CAMERA))
+                .setNegativeButton(R.string.btn_cancelar, null)
+                .show();
+    }
+
+    //Método del botón de ajustes: abre los detalles de la app para conceder el permiso (D-6)
+    private void abrirAjustes(View view) {
+        try {
+            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                    Uri.fromParts("package", requireContext().getPackageName(), null));
+            startActivity(intent);
+        } catch (Exception e) {
+            Log.i("camara", "error al abrir los ajustes " + e.getMessage());
+        }
+    }
+
+    //Método para abrir la pantalla de cámara; al terminar se vuelve al formulario
+    private void abrirCamara() {
+        btnAjustesCamara.setVisibility(View.GONE);
+        try {
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.frContenedor, new CamaraFragment())
+                    .addToBackStack(null)
+                    .commit();
+        } catch (Exception e) {
+            Log.i("navegacion", "error al abrir la cámara " + e.getMessage());
+        }
+    }
+
+    //Método para mostrar la miniatura de la foto tomada
+    private void mostrarFoto(String ruta) {
+        if (ruta == null) {
+            ivFotoReporte.setVisibility(View.GONE);
+            return;
+        }
+        try {
+            BitmapFactory.Options opciones = new BitmapFactory.Options();
+            opciones.inSampleSize = 4;
+            Bitmap foto = BitmapFactory.decodeFile(ruta, opciones);
+            if (foto == null) {
+                ivFotoReporte.setVisibility(View.GONE);
+                return;
+            }
+            ivFotoReporte.setImageBitmap(rotarSegunExif(foto, ruta));
+            ivFotoReporte.setVisibility(View.VISIBLE);
+        } catch (Exception e) {
+            Log.i("camara", "error al mostrar la foto " + e.getMessage());
+            ivFotoReporte.setVisibility(View.GONE);
+        }
+    }
+
+    //La cámara guarda la orientación en los datos EXIF; se aplica para mostrar la miniatura derecha
+    private Bitmap rotarSegunExif(Bitmap foto, String ruta) throws IOException {
+        int orientacion = new ExifInterface(ruta).getAttributeInt(
+                ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+        int grados;
+        if (orientacion == ExifInterface.ORIENTATION_ROTATE_90) {
+            grados = 90;
+        } else if (orientacion == ExifInterface.ORIENTATION_ROTATE_180) {
+            grados = 180;
+        } else if (orientacion == ExifInterface.ORIENTATION_ROTATE_270) {
+            grados = 270;
+        } else {
+            return foto;
+        }
+        Matrix matriz = new Matrix();
+        matriz.postRotate(grados);
+        return Bitmap.createBitmap(foto, 0, 0, foto.getWidth(), foto.getHeight(), matriz, true);
     }
 
     //Método para mostrar el resultado de la lectura del GPS en el formulario

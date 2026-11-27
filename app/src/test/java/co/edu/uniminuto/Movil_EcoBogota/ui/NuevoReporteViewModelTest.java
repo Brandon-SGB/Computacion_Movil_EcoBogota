@@ -37,4 +37,25 @@ public class NuevoReporteViewModelTest {
         assertEquals(R.string.reporte_no_enviado_sin_conexion,
                 FormularioViewModel.obtenerMensajeEnvio(false, R.string.reporte_no_enviado_sin_conexion));
     }
+
+    //D-4: permiso concedido, se abre la cámara
+    @Test
+    public void permisoCamara_concedido_abreCamara() {
+        assertEquals(NuevoReporteViewModel.AccionPermisoCamara.ABRIR_CAMARA,
+                NuevoReporteViewModel.decidirAccionPermisoCamara(true, false));
+    }
+
+    //D-5: permiso negado con explicación disponible, se explica y se permite reintentar
+    @Test
+    public void permisoCamara_negado_explicaYReintenta() {
+        assertEquals(NuevoReporteViewModel.AccionPermisoCamara.EXPLICAR_Y_REINTENTAR,
+                NuevoReporteViewModel.decidirAccionPermisoCamara(false, true));
+    }
+
+    //D-6: permiso negado de forma permanente, se ofrece abrir los ajustes de la app
+    @Test
+    public void permisoCamara_negadoPermanente_vaAAjustes() {
+        assertEquals(NuevoReporteViewModel.AccionPermisoCamara.IR_A_AJUSTES,
+                NuevoReporteViewModel.decidirAccionPermisoCamara(false, false));
+    }
 }

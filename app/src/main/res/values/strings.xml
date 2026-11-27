@@ -63,4 +63,16 @@
     <string name="hint_descripcion">Descripción del problema</string>
     <string name="error_descripcion_obligatoria">La descripción es obligatoria</string>
     <string name="reporte_no_enviado_sin_conexion">El reporte no fue enviado: sin conexión a internet</string>
+
+    <!-- Cámara del reporte (HU-06) -->
+    <string name="btn_tomar_foto">Tomar foto</string>
+    <string name="btn_capturar">Capturar</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_reintentar">Reintentar</string>
+    <string name="btn_ajustes_camara">Abrir ajustes para permitir la cámara</string>
+    <string name="titulo_permiso_camara">Permiso de cámara</string>
+    <string name="explicacion_permiso_camara">La cámara se usa solo para adjuntar una foto al reporte. Puedes enviar el reporte sin foto o volver a intentarlo.</string>
+    <string name="permiso_camara_permanente">El permiso de cámara está denegado. Puedes habilitarlo en los ajustes de la app o enviar el reporte sin foto.</string>
+    <string name="camara_no_disponible">La cámara no está disponible en este momento</string>
+    <string name="camara_error_captura">No fue posible tomar la foto; inténtalo de nuevo</string>
 </resources>

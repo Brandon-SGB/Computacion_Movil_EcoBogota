@@ -1,10 +1,13 @@
 package co.edu.uniminuto.Movil_EcoBogota.ui;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import java.io.File;
 
 import co.edu.uniminuto.Movil_EcoBogota.R;
 
@@ -14,6 +17,16 @@ public class NuevoReporteViewModel extends FormularioViewModel {
     //Errores de los campos; null cuando el campo es válido
     private final MutableLiveData<String> errorDescripcion = new MutableLiveData<>();
     private final MutableLiveData<String> errorDireccion = new MutableLiveData<>();
+
+    //Ruta de la foto tomada; el archivo vive en la caché de la app mientras el formulario está abierto
+    private final MutableLiveData<String> rutaFoto = new MutableLiveData<>();
+
+    //Acciones posibles tras la respuesta al permiso de cámara
+    enum AccionPermisoCamara {
+        ABRIR_CAMARA,
+        EXPLICAR_Y_REINTENTAR,
+        IR_A_AJUSTES
+    }
 
     public NuevoReporteViewModel(@NonNull Application application) {
         super(application);
@@ -25,6 +38,33 @@ public class NuevoReporteViewModel extends FormularioViewModel {
 
     public LiveData<String> getErrorDireccion() {
         return errorDireccion;
+    }
+
+    public LiveData<String> getRutaFoto() {
+        return rutaFoto;
+    }
+
+    public void setRutaFoto(String ruta) {
+        rutaFoto.setValue(ruta);
+    }
+
+    //Concedido: se abre la cámara; denegado con explicación: se explica y se reintenta (D-5);
+    //denegado sin explicación tras pedirlo: denegación permanente, se ofrece ir a los ajustes (D-6)
+    static AccionPermisoCamara decidirAccionPermisoCamara(boolean concedido, boolean mostrarExplicacion) {
+        if (concedido) {
+            return AccionPermisoCamara.ABRIR_CAMARA;
+        }
+        return mostrarExplicacion ? AccionPermisoCamara.EXPLICAR_Y_REINTENTAR : AccionPermisoCamara.IR_A_AJUSTES;
+    }
+
+    //Al cerrar el formulario se elimina la foto temporal; no se guarda en la galería
+    @Override
+    protected void onCleared() {
+        String ruta = rutaFoto.getValue();
+        if (ruta != null && !new File(ruta).delete()) {
+            Log.i("camara", "no se pudo eliminar la foto temporal");
+        }
+        super.onCleared();
     }
 
     //Método para validar y enviar el reporte

@@ -41,6 +41,30 @@
             android:inputType="textMultiLine|textCapSentences"
             android:minHeight="96dp" />
 
+        <Button
+            android:id="@+id/btnTomarFoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/btn_tomar_foto" />
+
+        <Button
+            android:id="@+id/btnAjustesCamara"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_ajustes_camara"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/ivFotoReporte"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/descripcion_foto_reporte"
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/tvUbicacion"
             android:layout_width="match_parent"
