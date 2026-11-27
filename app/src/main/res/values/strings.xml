@@ -41,7 +41,9 @@
     <string name="btn_gps">Usar mi ubicación (GPS)</string>
     <string name="hint_direccion">Dirección</string>
     <string name="btn_enviar">Enviar</string>
-    <string name="gps_pendiente">Ubicación por GPS pendiente de habilitar; escribe la dirección</string>
+    <string name="ubicacion_buscando">Obteniendo la ubicación por GPS…</string>
+    <string name="ubicacion_gps_obtenida">Ubicación por GPS: %1$.5f, %2$.5f</string>
+    <string name="ubicacion_no_obtenida">No fue posible obtener la ubicación por GPS; escribe la dirección</string>
     <string name="permiso_ubicacion_denegado">Permiso de ubicación denegado; escribe la dirección</string>
     <string name="error_ubicacion_obligatoria">Indica la ubicación por GPS o escribe la dirección</string>
     <string name="envio_pendiente_backend">El envío estará disponible cuando se configure el servicio del backend</string>

@@ -15,9 +15,6 @@ public class NuevaSolicitudViewModel extends FormularioViewModel {
     private final MutableLiveData<String> errorCantidad = new MutableLiveData<>();
     private final MutableLiveData<String> errorDireccion = new MutableLiveData<>();
 
-    //La ubicación por GPS no se lee hasta habilitar play-services-location (DA-7)
-    private boolean ubicacionGps = false;
-
     public NuevaSolicitudViewModel(@NonNull Application application) {
         super(application);
     }
@@ -33,7 +30,7 @@ public class NuevaSolicitudViewModel extends FormularioViewModel {
     //Método para validar y enviar la solicitud
     public void enviar(String cantidad, String direccion) {
         int validacionCantidad = validarCantidad(cantidad);
-        int validacionUbicacion = validarUbicacion(ubicacionGps, direccion);
+        int validacionUbicacion = validarUbicacion(tieneUbicacionGps(), direccion);
         errorCantidad.setValue(textoError(validacionCantidad));
         errorDireccion.setValue(textoError(validacionUbicacion));
         if (validacionCantidad != VALIDO) {
