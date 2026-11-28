@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_reportes"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="@string/menu_reportes" />
+
+    <item
+        android:id="@+id/nav_solicitudes"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="@string/menu_solicitudes" />
+
+    <item
+        android:id="@+id/nav_puntos"
+        android:icon="@android:drawable/ic_menu_mapmode"
+        android:title="@string/menu_puntos" />
+
+    <!-- Opciones de administrador: ocultas hasta que el contrato defina el rol (G3) -->
+    <item
+        android:id="@+id/nav_gestion_reportes"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="@string/menu_gestion_reportes"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/nav_gestion_solicitudes"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="@string/menu_gestion_solicitudes"
+        android:visible="false" />
+
+</menu>

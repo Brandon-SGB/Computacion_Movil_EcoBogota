@@ -1,3 +1,106 @@
 <resources>
     <string name="app_name">Movil_EcoBogota</string>
+    <string name="conexion_disponible">Con conexión a internet</string>
+    <string name="conexion_no_disponible">Sin conexión a internet</string>
+
+    <!-- Sesión e inicio de sesión (P-04, HU-02) -->
+    <string name="menu_cerrar_sesion">Cerrar sesión</string>
+    <string name="titulo_login">Iniciar sesión</string>
+    <string name="hint_correo">Correo electrónico</string>
+    <string name="hint_contrasena">Contraseña</string>
+    <string name="btn_ingresar">Ingresar</string>
+    <string name="btn_volver_inicio">Volver al inicio</string>
+    <string name="error_correo_obligatorio">El correo es obligatorio</string>
+    <string name="error_correo_invalido">El correo no tiene un formato válido</string>
+    <string name="error_contrasena_obligatoria">La contraseña es obligatoria</string>
+    <string name="login_pendiente_backend">El inicio de sesión estará disponible cuando se configure el servicio del backend</string>
+
+    <!-- Navegación inferior -->
+    <string name="menu_reportes">Reportes</string>
+    <string name="menu_solicitudes">Solicitudes</string>
+    <string name="menu_puntos">Puntos</string>
+    <string name="menu_gestion_reportes">Gestión de reportes</string>
+    <string name="menu_gestion_solicitudes">Gestión de solicitudes</string>
+
+    <!-- Administración (HU-08, HU-13) -->
+    <string name="titulo_gestion_reportes">Todos los reportes</string>
+    <string name="titulo_gestion_solicitudes">Todas las solicitudes de recolección</string>
+    <string name="etiqueta_nuevo_estado">Nuevo estado</string>
+    <string name="btn_actualizar_estado">Actualizar estado</string>
+    <string name="error_sin_permisos">No tienes permisos para realizar esta acción</string>
+    <string name="error_operacion">No fue posible completar la operación</string>
+
+    <!-- Estados de las consultas -->
+    <string name="consulta_pendiente_backend">La consulta estará disponible cuando se configure el servicio del backend</string>
+    <string name="btn_reintentar_consulta">Reintentar</string>
+    <string name="descripcion_cargando">Cargando</string>
+    <string name="descripcion_vista_previa_camara">Vista previa de la cámara</string>
+    <string name="sin_resultados">No hay resultados para mostrar</string>
+
+    <!-- Reportes (HU-07) -->
+    <string name="titulo_reportes">Mis reportes</string>
+    <string name="item_descripcion_reporte">Descripción</string>
+    <string name="item_fecha_reporte">Fecha</string>
+    <string name="item_tipo_problema_reporte">Tipo de problema</string>
+    <string name="item_estado_reporte">Estado</string>
+    <string name="item_ubicacion_reporte">Ubicación</string>
+    <string name="descripcion_foto_reporte">Foto del reporte</string>
+
+    <!-- Solicitudes (HU-12) -->
+    <string name="titulo_solicitudes">Mis solicitudes de recolección</string>
+    <string name="item_tipo_residuo_solicitud">Tipo de residuo</string>
+    <string name="item_cantidad_solicitud">Cantidad</string>
+    <string name="item_ubicacion_solicitud">Ubicación</string>
+    <string name="item_fecha_solicitud">Fecha</string>
+    <string name="item_estado_solicitud">Estado</string>
+
+    <!-- Puntos de reciclaje (HU-09) -->
+    <string name="titulo_puntos">Puntos de reciclaje</string>
+    <string name="filtro_tipo_residuo">Filtrar por tipo de residuo</string>
+    <string name="item_nombre_punto">Nombre</string>
+    <string name="item_direccion_punto">Dirección</string>
+    <string name="item_horario_punto">Horario</string>
+    <string name="item_tipos_residuo_punto">Tipos de residuo</string>
+
+    <!-- Formularios: ubicación y envío -->
+    <string name="btn_gps">Usar mi ubicación (GPS)</string>
+    <string name="hint_direccion">Dirección</string>
+    <string name="btn_enviar">Enviar</string>
+    <string name="ubicacion_buscando">Obteniendo la ubicación por GPS…</string>
+    <string name="ubicacion_gps_obtenida">Ubicación por GPS: %1$.5f, %2$.5f</string>
+    <string name="ubicacion_no_obtenida">No fue posible obtener la ubicación por GPS; escribe la dirección</string>
+    <string name="permiso_ubicacion_denegado">Permiso de ubicación denegado; escribe la dirección</string>
+    <string name="error_ubicacion_obligatoria">Indica la ubicación por GPS o escribe la dirección</string>
+    <string name="envio_pendiente_backend">El envío estará disponible cuando se configure el servicio del backend</string>
+
+    <!-- Nueva solicitud (HU-11) -->
+    <string name="btn_nueva_solicitud">Nueva solicitud</string>
+    <string name="titulo_nueva_solicitud">Nueva solicitud de recolección</string>
+    <string name="hint_cantidad">Cantidad</string>
+    <string name="error_cantidad_obligatoria">La cantidad es obligatoria</string>
+    <string name="error_cantidad_numerica">La cantidad debe ser un número</string>
+    <string name="error_cantidad_mayor_cero">La cantidad debe ser mayor que 0</string>
+    <string name="solicitud_no_enviada_sin_conexion">La solicitud no fue enviada: sin conexión a internet</string>
+
+    <!-- Nuevo reporte (HU-06) -->
+    <string name="btn_nuevo_reporte">Nuevo reporte</string>
+    <string name="titulo_nuevo_reporte">Nuevo reporte</string>
+    <string name="hint_descripcion">Descripción del problema</string>
+    <string name="error_descripcion_obligatoria">La descripción es obligatoria</string>
+    <string name="reporte_no_enviado_sin_conexion">El reporte no fue enviado: sin conexión a internet</string>
+
+    <!-- Cámara del reporte (HU-06) -->
+    <string name="btn_tomar_foto">Tomar foto</string>
+    <string name="btn_elegir_galeria">Elegir de la galería</string>
+    <string name="btn_quitar_foto">Quitar foto</string>
+    <string name="galeria_error">No fue posible usar la imagen elegida; inténtalo de nuevo</string>
+    <string name="btn_capturar">Capturar</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_reintentar">Reintentar</string>
+    <string name="btn_ajustes_camara">Abrir ajustes para permitir la cámara</string>
+    <string name="titulo_permiso_camara">Permiso de cámara</string>
+    <string name="explicacion_permiso_camara">La cámara se usa solo para adjuntar una foto al reporte. Puedes enviar el reporte sin foto o volver a intentarlo.</string>
+    <string name="permiso_camara_permanente">El permiso de cámara está denegado. Puedes habilitarlo en los ajustes de la app o enviar el reporte sin foto.</string>
+    <string name="camara_no_disponible">La cámara no está disponible en este momento</string>
+    <string name="camara_error_captura">No fue posible tomar la foto; inténtalo de nuevo</string>
 </resources>
