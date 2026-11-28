@@ -25,6 +25,7 @@ public class SolicitudesFragment extends Fragment {
     private RecyclerView rvSolicitudes;
     private ProgressBar pbSolicitudes;
     private TextView tvEstadoSolicitudes;
+    private Button btnReintentarSolicitudes;
     private Button btnNuevaSolicitud;
 
     //ViewModel de la pantalla
@@ -42,6 +43,7 @@ public class SolicitudesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initObjects(view);
         observarViewModel();
+        btnReintentarSolicitudes.setOnClickListener(this::reintentar);
         btnNuevaSolicitud.setOnClickListener(this::abrirNuevaSolicitud);
         if (viewModel.getEstado().getValue() == null) {
             viewModel.cargar();
@@ -66,6 +68,7 @@ public class SolicitudesFragment extends Fragment {
         rvSolicitudes = view.findViewById(R.id.rvSolicitudes);
         pbSolicitudes = view.findViewById(R.id.pbSolicitudes);
         tvEstadoSolicitudes = view.findViewById(R.id.tvEstadoSolicitudes);
+        btnReintentarSolicitudes = view.findViewById(R.id.btnReintentarSolicitudes);
         btnNuevaSolicitud = view.findViewById(R.id.btnNuevaSolicitud);
         //El adaptador se agrega cuando exista el contrato del backend
         rvSolicitudes.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -78,12 +81,18 @@ public class SolicitudesFragment extends Fragment {
         viewModel.getEstado().observe(getViewLifecycleOwner(), this::mostrarEstado);
     }
 
+    //Método del botón Reintentar: vuelve a consultar el listado
+    private void reintentar(View view) {
+        viewModel.cargar();
+    }
+
     //Método para mostrar las vistas según el estado
     private void mostrarEstado(EstadoUi estado) {
         pbSolicitudes.setVisibility(estado == EstadoUi.CARGANDO ? View.VISIBLE : View.GONE);
         rvSolicitudes.setVisibility(estado == EstadoUi.EXITO ? View.VISIBLE : View.GONE);
         boolean conMensaje = estado == EstadoUi.ERROR || estado == EstadoUi.SIN_RESULTADOS;
         tvEstadoSolicitudes.setVisibility(conMensaje ? View.VISIBLE : View.GONE);
+        btnReintentarSolicitudes.setVisibility(estado == EstadoUi.ERROR ? View.VISIBLE : View.GONE);
         if (estado == EstadoUi.SIN_RESULTADOS) {
             tvEstadoSolicitudes.setText(R.string.sin_resultados);
         }

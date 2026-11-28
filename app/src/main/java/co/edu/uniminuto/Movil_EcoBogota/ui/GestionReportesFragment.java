@@ -26,6 +26,7 @@ public class GestionReportesFragment extends Fragment {
     private RecyclerView rvGestionReportes;
     private ProgressBar pbGestionReportes;
     private TextView tvEstadoGestionReportes;
+    private Button btnReintentarGestionReportes;
     private Spinner spEstadoReporte;
     private Button btnActualizarEstadoReporte;
 
@@ -44,6 +45,7 @@ public class GestionReportesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initObjects(view);
         observarViewModel();
+        btnReintentarGestionReportes.setOnClickListener(this::reintentar);
         btnActualizarEstadoReporte.setOnClickListener(this::actualizarEstado);
         if (viewModel.getEstado().getValue() == null) {
             viewModel.cargar();
@@ -55,6 +57,7 @@ public class GestionReportesFragment extends Fragment {
         rvGestionReportes = view.findViewById(R.id.rvGestionReportes);
         pbGestionReportes = view.findViewById(R.id.pbGestionReportes);
         tvEstadoGestionReportes = view.findViewById(R.id.tvEstadoGestionReportes);
+        btnReintentarGestionReportes = view.findViewById(R.id.btnReintentarGestionReportes);
         spEstadoReporte = view.findViewById(R.id.spEstadoReporte);
         btnActualizarEstadoReporte = view.findViewById(R.id.btnActualizarEstadoReporte);
         //Los estados posibles llegan con el contrato G7; mientras tanto el selector queda deshabilitado
@@ -71,12 +74,18 @@ public class GestionReportesFragment extends Fragment {
         viewModel.getMensajeActualizacion().observe(getViewLifecycleOwner(), this::mostrarMensajeActualizacion);
     }
 
+    //Método del botón Reintentar: vuelve a consultar el listado
+    private void reintentar(View view) {
+        viewModel.cargar();
+    }
+
     //Método para mostrar las vistas según el estado
     private void mostrarEstado(EstadoUi estado) {
         pbGestionReportes.setVisibility(estado == EstadoUi.CARGANDO ? View.VISIBLE : View.GONE);
         rvGestionReportes.setVisibility(estado == EstadoUi.EXITO ? View.VISIBLE : View.GONE);
         boolean conMensaje = estado == EstadoUi.ERROR || estado == EstadoUi.SIN_RESULTADOS;
         tvEstadoGestionReportes.setVisibility(conMensaje ? View.VISIBLE : View.GONE);
+        btnReintentarGestionReportes.setVisibility(estado == EstadoUi.ERROR ? View.VISIBLE : View.GONE);
         if (estado == EstadoUi.SIN_RESULTADOS) {
             tvEstadoGestionReportes.setText(R.string.sin_resultados);
         }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ public class PuntosFragment extends Fragment {
     private RecyclerView rvPuntos;
     private ProgressBar pbPuntos;
     private TextView tvEstadoPuntos;
+    private Button btnReintentarPuntos;
     private Spinner spTipoResiduo;
 
     //ViewModel de la pantalla
@@ -41,6 +43,7 @@ public class PuntosFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initObjects(view);
         observarViewModel();
+        btnReintentarPuntos.setOnClickListener(this::reintentar);
         if (viewModel.getEstado().getValue() == null) {
             viewModel.cargar();
         }
@@ -51,6 +54,7 @@ public class PuntosFragment extends Fragment {
         rvPuntos = view.findViewById(R.id.rvPuntos);
         pbPuntos = view.findViewById(R.id.pbPuntos);
         tvEstadoPuntos = view.findViewById(R.id.tvEstadoPuntos);
+        btnReintentarPuntos = view.findViewById(R.id.btnReintentarPuntos);
         spTipoResiduo = view.findViewById(R.id.spTipoResiduo);
         //Los tipos de residuo del filtro llegan del backend; mientras tanto el filtro queda deshabilitado
         spTipoResiduo.setEnabled(false);
@@ -65,12 +69,18 @@ public class PuntosFragment extends Fragment {
         viewModel.getEstado().observe(getViewLifecycleOwner(), this::mostrarEstado);
     }
 
+    //Método del botón Reintentar: vuelve a consultar el listado
+    private void reintentar(View view) {
+        viewModel.cargar();
+    }
+
     //Método para mostrar las vistas según el estado
     private void mostrarEstado(EstadoUi estado) {
         pbPuntos.setVisibility(estado == EstadoUi.CARGANDO ? View.VISIBLE : View.GONE);
         rvPuntos.setVisibility(estado == EstadoUi.EXITO ? View.VISIBLE : View.GONE);
         boolean conMensaje = estado == EstadoUi.ERROR || estado == EstadoUi.SIN_RESULTADOS;
         tvEstadoPuntos.setVisibility(conMensaje ? View.VISIBLE : View.GONE);
+        btnReintentarPuntos.setVisibility(estado == EstadoUi.ERROR ? View.VISIBLE : View.GONE);
         if (estado == EstadoUi.SIN_RESULTADOS) {
             tvEstadoPuntos.setText(R.string.sin_resultados);
         }

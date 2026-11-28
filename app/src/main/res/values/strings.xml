@@ -32,6 +32,7 @@
 
     <!-- Estados de las consultas -->
     <string name="consulta_pendiente_backend">La consulta estará disponible cuando se configure el servicio del backend</string>
+    <string name="btn_reintentar_consulta">Reintentar</string>
     <string name="sin_resultados">No hay resultados para mostrar</string>
 
     <!-- Reportes (HU-07) -->

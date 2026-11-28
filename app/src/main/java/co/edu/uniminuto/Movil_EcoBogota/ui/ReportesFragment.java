@@ -25,6 +25,7 @@ public class ReportesFragment extends Fragment {
     private RecyclerView rvReportes;
     private ProgressBar pbReportes;
     private TextView tvEstadoReportes;
+    private Button btnReintentarReportes;
     private Button btnNuevoReporte;
 
     //ViewModel de la pantalla
@@ -42,6 +43,7 @@ public class ReportesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initObjects(view);
         observarViewModel();
+        btnReintentarReportes.setOnClickListener(this::reintentar);
         btnNuevoReporte.setOnClickListener(this::abrirNuevoReporte);
         if (viewModel.getEstado().getValue() == null) {
             viewModel.cargar();
@@ -66,6 +68,7 @@ public class ReportesFragment extends Fragment {
         rvReportes = view.findViewById(R.id.rvReportes);
         pbReportes = view.findViewById(R.id.pbReportes);
         tvEstadoReportes = view.findViewById(R.id.tvEstadoReportes);
+        btnReintentarReportes = view.findViewById(R.id.btnReintentarReportes);
         btnNuevoReporte = view.findViewById(R.id.btnNuevoReporte);
         //El adaptador se agrega cuando exista el contrato del backend
         rvReportes.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -78,12 +81,18 @@ public class ReportesFragment extends Fragment {
         viewModel.getEstado().observe(getViewLifecycleOwner(), this::mostrarEstado);
     }
 
+    //Método del botón Reintentar: vuelve a consultar el listado
+    private void reintentar(View view) {
+        viewModel.cargar();
+    }
+
     //Método para mostrar las vistas según el estado
     private void mostrarEstado(EstadoUi estado) {
         pbReportes.setVisibility(estado == EstadoUi.CARGANDO ? View.VISIBLE : View.GONE);
         rvReportes.setVisibility(estado == EstadoUi.EXITO ? View.VISIBLE : View.GONE);
         boolean conMensaje = estado == EstadoUi.ERROR || estado == EstadoUi.SIN_RESULTADOS;
         tvEstadoReportes.setVisibility(conMensaje ? View.VISIBLE : View.GONE);
+        btnReintentarReportes.setVisibility(estado == EstadoUi.ERROR ? View.VISIBLE : View.GONE);
         if (estado == EstadoUi.SIN_RESULTADOS) {
             tvEstadoReportes.setText(R.string.sin_resultados);
         }

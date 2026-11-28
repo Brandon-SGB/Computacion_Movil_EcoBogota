@@ -26,6 +26,7 @@ public class GestionSolicitudesFragment extends Fragment {
     private RecyclerView rvGestionSolicitudes;
     private ProgressBar pbGestionSolicitudes;
     private TextView tvEstadoGestionSolicitudes;
+    private Button btnReintentarGestionSolicitudes;
     private Spinner spEstadoSolicitud;
     private Button btnActualizarEstadoSolicitud;
 
@@ -44,6 +45,7 @@ public class GestionSolicitudesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initObjects(view);
         observarViewModel();
+        btnReintentarGestionSolicitudes.setOnClickListener(this::reintentar);
         btnActualizarEstadoSolicitud.setOnClickListener(this::actualizarEstado);
         if (viewModel.getEstado().getValue() == null) {
             viewModel.cargar();
@@ -55,6 +57,7 @@ public class GestionSolicitudesFragment extends Fragment {
         rvGestionSolicitudes = view.findViewById(R.id.rvGestionSolicitudes);
         pbGestionSolicitudes = view.findViewById(R.id.pbGestionSolicitudes);
         tvEstadoGestionSolicitudes = view.findViewById(R.id.tvEstadoGestionSolicitudes);
+        btnReintentarGestionSolicitudes = view.findViewById(R.id.btnReintentarGestionSolicitudes);
         spEstadoSolicitud = view.findViewById(R.id.spEstadoSolicitud);
         btnActualizarEstadoSolicitud = view.findViewById(R.id.btnActualizarEstadoSolicitud);
         //Los estados posibles llegan con el contrato G7; mientras tanto el selector queda deshabilitado
@@ -71,12 +74,18 @@ public class GestionSolicitudesFragment extends Fragment {
         viewModel.getMensajeActualizacion().observe(getViewLifecycleOwner(), this::mostrarMensajeActualizacion);
     }
 
+    //Método del botón Reintentar: vuelve a consultar el listado
+    private void reintentar(View view) {
+        viewModel.cargar();
+    }
+
     //Método para mostrar las vistas según el estado
     private void mostrarEstado(EstadoUi estado) {
         pbGestionSolicitudes.setVisibility(estado == EstadoUi.CARGANDO ? View.VISIBLE : View.GONE);
         rvGestionSolicitudes.setVisibility(estado == EstadoUi.EXITO ? View.VISIBLE : View.GONE);
         boolean conMensaje = estado == EstadoUi.ERROR || estado == EstadoUi.SIN_RESULTADOS;
         tvEstadoGestionSolicitudes.setVisibility(conMensaje ? View.VISIBLE : View.GONE);
+        btnReintentarGestionSolicitudes.setVisibility(estado == EstadoUi.ERROR ? View.VISIBLE : View.GONE);
         if (estado == EstadoUi.SIN_RESULTADOS) {
             tvEstadoGestionSolicitudes.setText(R.string.sin_resultados);
         }

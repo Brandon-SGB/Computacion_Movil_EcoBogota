@@ -58,6 +58,15 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnReintentarGestionSolicitudes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="72dp"
+            android:text="@string/btn_reintentar_consulta"
+            android:visibility="gone" />
     </FrameLayout>
 
 </LinearLayout>
