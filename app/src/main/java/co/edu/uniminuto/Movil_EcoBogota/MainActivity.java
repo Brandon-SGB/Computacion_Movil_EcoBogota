@@ -23,6 +23,8 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import co.edu.uniminuto.Movil_EcoBogota.data.session.SessionManager;
+import co.edu.uniminuto.Movil_EcoBogota.ui.GestionReportesFragment;
+import co.edu.uniminuto.Movil_EcoBogota.ui.GestionSolicitudesFragment;
 import co.edu.uniminuto.Movil_EcoBogota.ui.LoginActivity;
 import co.edu.uniminuto.Movil_EcoBogota.ui.PuntosFragment;
 import co.edu.uniminuto.Movil_EcoBogota.ui.ReportesFragment;
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         });
         initObjects();
         configurarBottomNavigation();
+        configurarOpcionesAdministrador();
         observarSesion();
         //Pantalla inicial: solo la primera vez, no al rotar
         if (savedInstanceState == null) {
@@ -140,8 +143,24 @@ public class MainActivity extends AppCompatActivity {
             return new SolicitudesFragment();
         } else if (itemId == R.id.nav_puntos) {
             return new PuntosFragment();
+        } else if (itemId == R.id.nav_gestion_reportes && esAdministrador()) {
+            return new GestionReportesFragment();
+        } else if (itemId == R.id.nav_gestion_solicitudes && esAdministrador()) {
+            return new GestionSolicitudesFragment();
         }
         return null;
+    }
+
+    //El rol de administrador llegará con el contrato del backend (G3); no se guarda ni se simula localmente
+    private boolean esAdministrador() {
+        return false;
+    }
+
+    //Método para mostrar u ocultar las opciones de administrador según el rol
+    private void configurarOpcionesAdministrador() {
+        boolean administrador = esAdministrador();
+        bnvMenu.getMenu().findItem(R.id.nav_gestion_reportes).setVisible(administrador);
+        bnvMenu.getMenu().findItem(R.id.nav_gestion_solicitudes).setVisible(administrador);
     }
 
     //Método para mostrar un fragment en el contenedor
