@@ -33,6 +33,7 @@
 
         <ProgressBar
             android:id="@+id/pbSolicitudes"
+            android:contentDescription="@string/descripcion_cargando"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
