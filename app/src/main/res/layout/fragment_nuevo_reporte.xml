@@ -49,6 +49,13 @@
             android:text="@string/btn_tomar_foto" />
 
         <Button
+            android:id="@+id/btnElegirGaleria"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_elegir_galeria" />
+
+        <Button
             android:id="@+id/btnAjustesCamara"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="match_parent"

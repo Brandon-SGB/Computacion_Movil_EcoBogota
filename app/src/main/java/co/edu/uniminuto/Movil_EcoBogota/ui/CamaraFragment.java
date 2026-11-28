@@ -33,8 +33,8 @@ public class CamaraFragment extends Fragment {
     public static final String CLAVE_RUTA_FOTO = "ruta_foto";
 
     //Archivo temporal de la foto; se guarda en la caché de la app, no en la galería
-    private static final String CARPETA_FOTOS = "fotos";
-    private static final String NOMBRE_FOTO = "foto_reporte.jpg";
+    static final String CARPETA_FOTOS = "fotos";
+    static final String NOMBRE_FOTO = "foto_reporte.jpg";
 
     //Vistas
     private PreviewView pvCamara;

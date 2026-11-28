@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -55,6 +56,7 @@ public class NuevoReporteFragment extends Fragment {
     private TextView tvEstadoNuevoReporte;
     private TextView tvUbicacionGps;
     private Button btnTomarFoto;
+    private Button btnElegirGaleria;
     private Button btnAjustesCamara;
     private ImageView ivFotoReporte;
 
@@ -70,6 +72,11 @@ public class NuevoReporteFragment extends Fragment {
     private final ActivityResultLauncher<String> solicitudPermisoCamara =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(),
                     this::onRespuestaPermisoCamara);
+
+    //Selector de fotos del sistema (Photo Picker); no necesita permisos de almacenamiento (D-8)
+    private final ActivityResultLauncher<PickVisualMediaRequest> selectorGaleria =
+            registerForActivityResult(new ActivityResultContracts.PickVisualMedia(),
+                    this::onImagenElegida);
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,6 +105,7 @@ public class NuevoReporteFragment extends Fragment {
         btnGps.setOnClickListener(this::usarGps);
         btnEnviarReporte.setOnClickListener(this::enviarReporte);
         btnTomarFoto.setOnClickListener(this::tomarFoto);
+        btnElegirGaleria.setOnClickListener(this::elegirDeGaleria);
         btnAjustesCamara.setOnClickListener(this::abrirAjustes);
     }
 
@@ -112,6 +120,7 @@ public class NuevoReporteFragment extends Fragment {
         tvEstadoNuevoReporte = view.findViewById(R.id.tvEstadoNuevoReporte);
         tvUbicacionGps = view.findViewById(R.id.tvUbicacionGps);
         btnTomarFoto = view.findViewById(R.id.btnTomarFoto);
+        btnElegirGaleria = view.findViewById(R.id.btnElegirGaleria);
         btnAjustesCamara = view.findViewById(R.id.btnAjustesCamara);
         ivFotoReporte = view.findViewById(R.id.ivFotoReporte);
         //Los tipos de problema llegan del backend; mientras tanto la lista queda deshabilitada
@@ -173,6 +182,24 @@ public class NuevoReporteFragment extends Fragment {
             }
         }
         return false;
+    }
+
+    //Método del botón Elegir de la galería: abre el Photo Picker solo con imágenes
+    private void elegirDeGaleria(View view) {
+        try {
+            selectorGaleria.launch(new PickVisualMediaRequest.Builder()
+                    .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                    .build());
+        } catch (Exception e) {
+            Log.i("galeria", "error al abrir el selector de fotos " + e.getMessage());
+        }
+    }
+
+    //Método que recibe la imagen elegida; si el usuario cancela llega null y no cambia nada
+    private void onImagenElegida(Uri imagen) {
+        if (imagen != null && !viewModel.usarFotoGaleria(imagen)) {
+            Toast.makeText(requireContext(), R.string.galeria_error, Toast.LENGTH_LONG).show();
+        }
     }
 
     //Método del botón Tomar foto: el permiso de cámara se pide solo en este momento (D-4)

@@ -1,6 +1,7 @@
 package co.edu.uniminuto.Movil_EcoBogota.ui;
 
 import android.app.Application;
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -8,6 +9,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import co.edu.uniminuto.Movil_EcoBogota.R;
 
@@ -46,6 +50,32 @@ public class NuevoReporteViewModel extends FormularioViewModel {
 
     public void setRutaFoto(String ruta) {
         rutaFoto.setValue(ruta);
+    }
+
+    //Copia la imagen elegida en el Photo Picker al mismo archivo temporal de la cámara (D-8);
+    //así la miniatura y el borrado al cerrar el formulario funcionan igual
+    public boolean usarFotoGaleria(Uri imagen) {
+        File carpeta = new File(getApplication().getCacheDir(), CamaraFragment.CARPETA_FOTOS);
+        if (!carpeta.exists() && !carpeta.mkdirs()) {
+            return false;
+        }
+        File archivo = new File(carpeta, CamaraFragment.NOMBRE_FOTO);
+        try (InputStream entrada = getApplication().getContentResolver().openInputStream(imagen);
+             OutputStream salida = new FileOutputStream(archivo)) {
+            if (entrada == null) {
+                return false;
+            }
+            byte[] bloque = new byte[8192];
+            int leidos;
+            while ((leidos = entrada.read(bloque)) != -1) {
+                salida.write(bloque, 0, leidos);
+            }
+        } catch (Exception e) {
+            Log.i("galeria", "error al copiar la imagen " + e.getMessage());
+            return false;
+        }
+        rutaFoto.setValue(archivo.getAbsolutePath());
+        return true;
     }
 
     //Concedido: se abre la cámara; denegado con explicación: se explica y se reintenta (D-5);

@@ -87,6 +87,8 @@
 
     <!-- Cámara del reporte (HU-06) -->
     <string name="btn_tomar_foto">Tomar foto</string>
+    <string name="btn_elegir_galeria">Elegir de la galería</string>
+    <string name="galeria_error">No fue posible usar la imagen elegida; inténtalo de nuevo</string>
     <string name="btn_capturar">Capturar</string>
     <string name="btn_cancelar">Cancelar</string>
     <string name="btn_reintentar">Reintentar</string>
