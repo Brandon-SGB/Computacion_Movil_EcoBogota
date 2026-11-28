@@ -17,6 +17,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 //Prueba en el dispositivo: validación de la pantalla de inicio de sesión (HU-02, A8)
@@ -42,6 +43,15 @@ public class LoginActivityTest {
             closeSoftKeyboard();
             onView(withId(R.id.btnIngresar)).perform(click());
             onView(withId(R.id.etCorreo)).check(matches(hasErrorText(context.getString(R.string.error_correo_invalido))));
+        }
+    }
+
+    //Botón provisional Volver al inicio: abre la pantalla principal con la navegación inferior
+    @Test
+    public void volverAlInicio_abrePantallaPrincipal() {
+        try (ActivityScenario<LoginActivity> ignored = ActivityScenario.launch(LoginActivity.class)) {
+            onView(withId(R.id.btnVolverInicio)).perform(click());
+            onView(withId(R.id.bnvMenu)).check(matches(isDisplayed()));
         }
     }
 }

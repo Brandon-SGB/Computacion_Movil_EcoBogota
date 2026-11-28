@@ -1,5 +1,6 @@
 package co.edu.uniminuto.Movil_EcoBogota.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import co.edu.uniminuto.Movil_EcoBogota.MainActivity;
 import co.edu.uniminuto.Movil_EcoBogota.R;
 
 //Pantalla de inicio de sesión (HU-02)
@@ -23,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etCorreo;
     private EditText etContrasena;
     private Button btnIngresar;
+    private Button btnVolverInicio;
     private ProgressBar pbLogin;
     private TextView tvEstadoLogin;
 
@@ -42,6 +45,15 @@ public class LoginActivity extends AppCompatActivity {
         initObjects();
         observarViewModel();
         btnIngresar.setOnClickListener(this::ingresar);
+        btnVolverInicio.setOnClickListener(this::volverAlInicio);
+    }
+
+    //Provisional hasta la autenticación real con el backend: sin servicio no hay forma de ingresar,
+    //así que se permite volver a la pantalla principal con la pila limpia
+    private void volverAlInicio(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     //Método para enlazar los objetos de la vista con la parte lógica
@@ -49,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         etCorreo = findViewById(R.id.etCorreo);
         etContrasena = findViewById(R.id.etContrasena);
         btnIngresar = findViewById(R.id.btnIngresar);
+        btnVolverInicio = findViewById(R.id.btnVolverInicio);
         pbLogin = findViewById(R.id.pbLogin);
         tvEstadoLogin = findViewById(R.id.tvEstadoLogin);
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
