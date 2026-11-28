@@ -1,14 +1,18 @@
 package co.edu.uniminuto.Movil_EcoBogota;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -18,6 +22,8 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import co.edu.uniminuto.Movil_EcoBogota.data.session.SessionManager;
+import co.edu.uniminuto.Movil_EcoBogota.ui.LoginActivity;
 import co.edu.uniminuto.Movil_EcoBogota.ui.PuntosFragment;
 import co.edu.uniminuto.Movil_EcoBogota.ui.ReportesFragment;
 import co.edu.uniminuto.Movil_EcoBogota.ui.SolicitudesFragment;
@@ -29,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
     //Navegación inferior
     private BottomNavigationView bnvMenu;
+
+    //Sesión del usuario
+    private SessionManager sessionManager;
 
     //Conexión a internet
     private ConnectivityManager conexion;
@@ -46,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         });
         initObjects();
         configurarBottomNavigation();
+        observarSesion();
         //Pantalla inicial: solo la primera vez, no al rotar
         if (savedInstanceState == null) {
             bnvMenu.setSelectedItemId(R.id.nav_reportes);
@@ -62,6 +72,52 @@ public class MainActivity extends AppCompatActivity {
     private void initObjects() {
         context = getApplicationContext();
         bnvMenu = findViewById(R.id.bnvMenu);
+        setSupportActionBar(findViewById(R.id.tbPrincipal));
+        sessionManager = SessionManager.getInstance(context);
+    }
+
+    //Menú de la barra superior con la opción Cerrar sesión
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_superior, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.opcion_cerrar_sesion) {
+            cerrarSesion();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    //Método para cerrar la sesión (A6); si había token, el aviso de sesión abre el login
+    private void cerrarSesion() {
+        try {
+            if (!sessionManager.invalidarSesion()) {
+                abrirLogin();
+            }
+        } catch (Exception e) {
+            Log.i("sesion", "error al cerrar la sesión " + e.getMessage());
+        }
+    }
+
+    //Método para observar el aviso de sesión invalidada (P-04, A11)
+    private void observarSesion() {
+        sessionManager.getSesionInvalidada().observe(this, invalidada -> {
+            if (Boolean.TRUE.equals(invalidada)) {
+                sessionManager.limpiarAvisoSesion();
+                abrirLogin();
+            }
+        });
+    }
+
+    //Método para abrir el inicio de sesión con la pila de pantallas limpia (A6)
+    private void abrirLogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     //Método para configurar la navegación inferior

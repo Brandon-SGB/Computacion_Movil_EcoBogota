@@ -3,6 +3,8 @@ package co.edu.uniminuto.Movil_EcoBogota.data.session;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
 
@@ -21,6 +23,9 @@ public class SessionManager implements SessionStore {
 
     //Preferencias cifradas donde se guarda el token
     private final SharedPreferences preferencias;
+
+    //Aviso para la interfaz cuando la sesión se invalida (P-04)
+    private final MutableLiveData<Boolean> sesionInvalidada = new MutableLiveData<>(false);
 
     //Las clases de security-crypto 1.1.0 están marcadas como obsoletas; se mantienen por la decisión R-01/DA-6
     @SuppressWarnings("deprecation")
@@ -68,13 +73,24 @@ public class SessionManager implements SessionStore {
         return token != null && !token.isEmpty();
     }
 
-    //Sincronizado para que varias respuestas 401 simultáneas produzcan una sola invalidación
+    //Aviso de sesión invalidada para la interfaz (P-04); true una sola vez por invalidación
+    public LiveData<Boolean> getSesionInvalidada() {
+        return sesionInvalidada;
+    }
+
+    //La interfaz confirma que ya atendió el aviso para no repetirlo
+    public void limpiarAvisoSesion() {
+        sesionInvalidada.postValue(false);
+    }
+
+    //Sincronizado para que varias respuestas 401 simultáneas produzcan una sola invalidación y un solo aviso
     @Override
     public synchronized boolean invalidarSesion() {
         if (!preferencias.contains(CLAVE_TOKEN)) {
             return false;
         }
         preferencias.edit().remove(CLAVE_TOKEN).commit();
+        sesionInvalidada.postValue(true);
         return true;
     }
 }

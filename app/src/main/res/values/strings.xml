@@ -3,6 +3,17 @@
     <string name="conexion_disponible">Con conexión a internet</string>
     <string name="conexion_no_disponible">Sin conexión a internet</string>
 
+    <!-- Sesión e inicio de sesión (P-04, HU-02) -->
+    <string name="menu_cerrar_sesion">Cerrar sesión</string>
+    <string name="titulo_login">Iniciar sesión</string>
+    <string name="hint_correo">Correo electrónico</string>
+    <string name="hint_contrasena">Contraseña</string>
+    <string name="btn_ingresar">Ingresar</string>
+    <string name="error_correo_obligatorio">El correo es obligatorio</string>
+    <string name="error_correo_invalido">El correo no tiene un formato válido</string>
+    <string name="error_contrasena_obligatoria">La contraseña es obligatoria</string>
+    <string name="login_pendiente_backend">El inicio de sesión estará disponible cuando se configure el servicio del backend</string>
+
     <!-- Navegación inferior -->
     <string name="menu_reportes">Reportes</string>
     <string name="menu_solicitudes">Solicitudes</string>

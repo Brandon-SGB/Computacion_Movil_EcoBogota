@@ -7,6 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/tbPrincipal"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/app_name" />
+
     <FrameLayout
         android:id="@+id/frContenedor"
         android:layout_width="0dp"
@@ -14,7 +23,7 @@
         app:layout_constraintBottom_toTopOf="@id/bnvMenu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tbPrincipal" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bnvMenu"
