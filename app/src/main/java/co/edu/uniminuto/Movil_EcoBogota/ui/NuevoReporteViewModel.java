@@ -87,6 +87,15 @@ public class NuevoReporteViewModel extends FormularioViewModel {
         return mostrarExplicacion ? AccionPermisoCamara.EXPLICAR_Y_REINTENTAR : AccionPermisoCamara.IR_A_AJUSTES;
     }
 
+    //Método del botón Quitar foto: borra el archivo temporal y deja el reporte sin foto
+    public void quitarFoto() {
+        String ruta = rutaFoto.getValue();
+        if (ruta != null && !new File(ruta).delete()) {
+            Log.i("camara", "no se pudo eliminar la foto temporal");
+        }
+        rutaFoto.setValue(null);
+    }
+
     //Al cerrar el formulario se elimina la foto temporal; no se guarda en la galería
     @Override
     protected void onCleared() {

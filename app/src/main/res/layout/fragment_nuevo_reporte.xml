@@ -72,6 +72,14 @@
             android:scaleType="centerCrop"
             android:visibility="gone" />
 
+        <Button
+            android:id="@+id/btnQuitarFoto"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_quitar_foto"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/tvUbicacion"
             android:layout_width="match_parent"

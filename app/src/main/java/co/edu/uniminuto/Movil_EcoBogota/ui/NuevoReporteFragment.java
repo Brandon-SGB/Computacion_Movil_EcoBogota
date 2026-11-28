@@ -59,6 +59,7 @@ public class NuevoReporteFragment extends Fragment {
     private Button btnElegirGaleria;
     private Button btnAjustesCamara;
     private ImageView ivFotoReporte;
+    private Button btnQuitarFoto;
 
     //ViewModel de la pantalla
     private NuevoReporteViewModel viewModel;
@@ -106,6 +107,7 @@ public class NuevoReporteFragment extends Fragment {
         btnEnviarReporte.setOnClickListener(this::enviarReporte);
         btnTomarFoto.setOnClickListener(this::tomarFoto);
         btnElegirGaleria.setOnClickListener(this::elegirDeGaleria);
+        btnQuitarFoto.setOnClickListener(this::quitarFoto);
         btnAjustesCamara.setOnClickListener(this::abrirAjustes);
     }
 
@@ -123,6 +125,7 @@ public class NuevoReporteFragment extends Fragment {
         btnElegirGaleria = view.findViewById(R.id.btnElegirGaleria);
         btnAjustesCamara = view.findViewById(R.id.btnAjustesCamara);
         ivFotoReporte = view.findViewById(R.id.ivFotoReporte);
+        btnQuitarFoto = view.findViewById(R.id.btnQuitarFoto);
         //Los tipos de problema llegan del backend; mientras tanto la lista queda deshabilitada
         spTipoProblema.setEnabled(false);
         viewModel = new ViewModelProvider(this).get(NuevoReporteViewModel.class);
@@ -272,8 +275,14 @@ public class NuevoReporteFragment extends Fragment {
         }
     }
 
-    //Método para mostrar la miniatura de la foto tomada
+    //Método del botón Quitar foto
+    private void quitarFoto(View view) {
+        viewModel.quitarFoto();
+    }
+
+    //Método para mostrar la miniatura de la foto tomada; Quitar foto solo se ve si hay foto
     private void mostrarFoto(String ruta) {
+        btnQuitarFoto.setVisibility(View.GONE);
         if (ruta == null) {
             ivFotoReporte.setVisibility(View.GONE);
             return;
@@ -288,6 +297,7 @@ public class NuevoReporteFragment extends Fragment {
             }
             ivFotoReporte.setImageBitmap(rotarSegunExif(foto, ruta));
             ivFotoReporte.setVisibility(View.VISIBLE);
+            btnQuitarFoto.setVisibility(View.VISIBLE);
         } catch (Exception e) {
             Log.i("camara", "error al mostrar la foto " + e.getMessage());
             ivFotoReporte.setVisibility(View.GONE);
